@@ -102,7 +102,7 @@ fetch_and_run_zip () {
 
   # Use first argument as command
   local command="${1}"; shift
-  exec "${command}" "${@}" || error_exit " Failed to execute command."
+  "${command}" "${@}" || error_exit " Failed to execute command."
 }
 
 # Main - dispatch user request to appropriate function
