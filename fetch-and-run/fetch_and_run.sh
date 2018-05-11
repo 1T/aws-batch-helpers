@@ -100,11 +100,9 @@ fetch_and_run_zip () {
   cd "${TMPDIR}" || error_exit "Unable to cd to temporary directory."
   unzip -q "${TMPFILE}" || error_exit "Failed to unpack zip file."
 
-  # Use first argument as script name and pass the rest to the script
-  local script="./${1}"; shift
-  [ -r "${script}" ] || error_exit "Did not find specified script '${script}' in zip from ${BATCH_FILE_S3_URL}"
-  chmod u+x "${script}" || error_exit "Failed to chmod script."
-  exec "${script}" "${@}" || error_exit " Failed to execute script."
+  # Use first argument as command
+  local command="${1}"; shift
+  exec "${command}" "${@}" || error_exit " Failed to execute command."
 }
 
 # Main - dispatch user request to appropriate function
